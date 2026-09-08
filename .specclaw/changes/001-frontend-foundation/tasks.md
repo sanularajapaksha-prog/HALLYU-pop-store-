@@ -2,7 +2,9 @@
 
 ## Wave 1
 
-- [ ] T1 — Scaffold Next.js 15 project (TypeScript, Tailwind, App Router, `src/` dir, ESLint). Confirm Tailwind major version installed. **Files:** whole project skeleton. **Depends:** none.
+- [x] T1 — Scaffold Next.js 15 project (TypeScript, Tailwind, App Router, `src/` dir, ESLint). Confirm Tailwind major version installed. **Files:** whole project skeleton. **Depends:** none.
+  - Confirmed: Tailwind v4 (CSS-first `@theme inline`, no `tailwind.config.ts`) — design.md's contingency path is the one in effect.
+  - `npm run build` fails on default scaffold: `next/font/google` (Geist/Geist Mono) can't reach `fonts.googleapis.com` — matches spec.md EC1 exactly. Resolved by T2 (fontsource swap), not a T1 defect.
 
 ## Wave 2 (parallel, both depend on T1)
 
