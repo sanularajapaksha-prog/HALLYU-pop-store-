@@ -5,7 +5,7 @@ project:
     collecting, comeback tracking. Built from kpop_marketplace_design_system.md.
 
 stack:
-  framework: nextjs@15
+  framework: nextjs@16.3.4   # confirmed via package.json — doc §42 assumed v15, npm installed v16
   language: typescript
   styling: tailwindcss
   router: app
