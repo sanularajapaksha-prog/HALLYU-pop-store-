@@ -1,0 +1,35 @@
+project:
+  name: kpop-marketplace
+  description: >
+    Premium K-pop marketplace frontend — artist-first discovery, album/photocard
+    collecting, comeback tracking. Built from kpop_marketplace_design_system.md.
+
+stack:
+  framework: nextjs@15
+  language: typescript
+  styling: tailwindcss
+  router: app
+
+git:
+  strategy: single-branch   # no worktree-per-change support in this sandbox
+  default_branch: main
+
+automation:
+  post_build_review: true
+
+test_command: "npm run build"
+
+github:
+  sync: false   # no gh auth available in this sandbox
+
+azdo:
+  boards:
+    sync: false
+
+notes: >
+  Generated manually — the specclaw plugin's executable scripts
+  (specclaw-init, specclaw-build, specclaw-parse-tasks, etc.) are not
+  installed in this environment, only the instructional SKILL.md files.
+  This config/STATUS/changes structure mirrors what specclaw-init would
+  produce, authored by hand so the propose -> plan -> build stages stay
+  auditable the same way they would in Claude Code.
