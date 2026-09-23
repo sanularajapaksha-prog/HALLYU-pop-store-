@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { ParallaxLayer } from "@/components/ui/ParallaxLayer";
 import { useClientNow } from "@/hooks/useClientNow";
-import { PARALLAX_SPEED } from "@/lib/motion";
+import { PARALLAX_SPEED, SPRING_STATE } from "@/lib/motion";
 import { ROUTES } from "@/lib/routes";
 import { cn, daysUntil } from "@/lib/utils";
 
@@ -64,8 +64,15 @@ export function ComebackCard({ comeback, className }: ComebackCardProps) {
     <article
       className={cn(
         "rounded-xl bg-surface p-1.5 ring-1 ring-foreground/5",
-        "transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5",
+        `transition-[transform,box-shadow] duration-300 ${SPRING_STATE}`,
+        "hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]",
+        // The card is an <article>, not a link: the only focusable thing inside
+        // is the action Button, so focus-within is the hook that makes
+        // keyboarding into it lift exactly like hover — same pattern as
+        // ProductCard, whose interactive parts are also nested.
+        "focus-within:-translate-y-0.5 focus-within:shadow-[0_8px_30px_rgba(0,0,0,0.06)]",
         "motion-reduce:transition-none motion-reduce:hover:transform-none",
+        "motion-reduce:focus-within:transform-none",
         className,
       )}
     >
