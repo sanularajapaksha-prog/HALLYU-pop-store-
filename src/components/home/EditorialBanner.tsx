@@ -21,8 +21,21 @@ export interface EditorialBannerProps {
  * on the other. That is what makes it read as a magazine spread rather than an ad
  * banner — text over a darkened photo is the banner idiom §33 is meant to break up.
  *
- * bg-surface separates it from the white product sections either side. §9 prefers
- * background + spacing + borders over shadows for separation, so no drop shadow.
+ * TONE — this band is now the page background, not bg-surface, and that is the
+ * fix for a real defect rather than a preference. The homepage runs
+ * FanFavorites(surface) -> ComebackRadar(surface) -> EditorialBanner, and when
+ * this section also painted surface the three merged into one undifferentiated
+ * grey slab roughly a third of the page tall. Alternation that does not
+ * alternate is not separation.
+ *
+ * Flipping THIS one (rather than one of the other two, whose tone lives in
+ * files outside this change) is also the better call on the merits: the two
+ * product-led bands above belong together as one chapter, and the editorial
+ * break should be the thing that interrupts them. It now separates by content
+ * and composition — a portrait plate, a 5/7 split, display type — instead of by
+ * a background tint, which is the stronger separator anyway.
+ *
+ * §9 prefers background + spacing + borders over shadows, so still no drop shadow.
  */
 export function EditorialBanner({
   eyebrow = "Editorial",
@@ -35,7 +48,7 @@ export function EditorialBanner({
   return (
     <section
       aria-labelledby="editorial-heading"
-      className={cn("bg-surface py-20 md:py-28", className)}
+      className={cn("py-20 md:py-28", className)}
     >
       <Container>
         {/*
@@ -64,16 +77,34 @@ export function EditorialBanner({
               lg:pl-8 is the gutter of the spread — type does not start flush
               against the plate's edge. */}
           <div className="md:col-span-7 lg:pl-8">
+            {/*
+              This is the ONE eyebrow left standing on the homepage, and it is
+              the one that earns the space: it is the only signal that tells a
+              scrolling visitor this band is a piece of writing rather than
+              another product rail. Hero's and New Drop's were cut because their
+              headlines already said it.
+
+              It is a bare label, not a bordered pill. The pill treatment is what
+              made eight identical stamps read as a template; stripped to a rule
+              plus tracked caps it reads as a masthead kicker, which is what an
+              editorial break actually wants. The hairline above it does the
+              separating work the pill's border used to do, without boxing.
+            */}
             <Reveal delay={100}>
-              <span className="inline-block rounded-pill border border-border px-3 py-1 text-micro uppercase tracking-[0.2em] text-muted">
+              <span className="block border-t border-foreground/15 pt-4 text-micro uppercase tracking-[0.2em] text-muted">
                 {eyebrow}
               </span>
             </Reveal>
 
+            {/*
+              max-w-[14ch] is removed: "The Collector" is 13 characters, so the
+              measure never applied and was misleading to whoever edits the
+              `title` prop next. The column width already governs the wrap.
+            */}
             <Reveal delay={200}>
               <h2
                 id="editorial-heading"
-                className="mt-6 max-w-[14ch] font-display text-display-md leading-[0.95] tracking-tight text-foreground"
+                className="mt-6 font-display text-display-md leading-[0.95] tracking-tight text-foreground"
               >
                 {title}
               </h2>

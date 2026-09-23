@@ -1,23 +1,48 @@
-import Link from "next/link";
+import Categories from "@/components/home/Categories";
+import EditorialBanner from "@/components/home/EditorialBanner";
+import Hero from "@/components/home/Hero";
+import NewDrop from "@/components/home/NewDrop";
+import ComebackRadar from "@/components/home/ComebackRadar";
+import FanFavorites from "@/components/home/FanFavorites";
+import Newsletter from "@/components/home/Newsletter";
+import RecentlyViewed from "@/components/home/RecentlyViewed";
+import ShopByArtist from "@/components/home/ShopByArtist";
+import TrendingProducts from "@/components/home/TrendingProducts";
 
-// Placeholder root page for change 001-frontend-foundation.
-// Real homepage sections (Hero, TrendingProducts, ShopByArtist, etc. —
-// doc §13/§47) land in a later change once ProductCard/Navbar exist.
-
+/**
+ * Homepage composition. Server Component — every section owns its own data and
+ * its own client boundary, so this file is pure ordering (§43).
+ *
+ * Order is §13's homepage architecture verbatim: Hero, TrendingProducts,
+ * ShopByArtist, NewDrop, Categories, FanFavorites, ComebackRadar,
+ * EditorialBanner, RecentlyViewed, Newsletter. (Comeback Radar previously sat
+ * at position 4; that was an undocumented deviation and is now corrected.)
+ *
+ * Tone, reading down:
+ *   Hero(image) Trending(white) Artists(white) NewDrop(white)
+ *   Collections(white) FanFavorites(SURFACE) ComebackRadar(SURFACE)
+ *   EditorialBanner(white) RecentlyViewed(white) Newsletter(white panel)
+ *
+ * That gives the page one dark opening, one toned chapter in the middle, and
+ * white either side of it. The earlier draft had three toned bands touching,
+ * which merged into a single grey slab; EditorialBanner now paints the page
+ * background and separates by composition instead (see its own header comment).
+ */
 export default function Home() {
   return (
-    <main className="mx-auto max-w-2xl px-6 py-24 text-center space-y-6">
-      <h1 className="text-display-md">K-pop Marketplace</h1>
-      <p className="text-body text-muted">
-        Frontend foundation (change 001) is in place: Next.js, TypeScript,
-        Tailwind, and the design token system are wired up.
-      </p>
-      <Link
-        href="/design-tokens"
-        className="inline-block text-body-sm font-medium text-accent underline underline-offset-4"
-      >
-        View design tokens
-      </Link>
-    </main>
+    // NOTE: <main> (with the BottomNav pb-20 clearance) lives in layout.tsx.
+    // Rendering a second one here nested an invalid <main> inside <main>.
+    <>
+      <Hero />
+      <TrendingProducts />
+      <ShopByArtist />
+      <NewDrop />
+      <Categories />
+      <FanFavorites />
+      <ComebackRadar />
+      <EditorialBanner />
+      <RecentlyViewed />
+      <Newsletter />
+    </>
   );
 }

@@ -10,6 +10,12 @@ export interface NewDropProps {
   title?: string;
   /** One line of supporting copy. Keep it to one line; §20 is a campaign, not a paragraph. */
   copy?: string;
+  /**
+   * CTA label. Names THIS block's destination — it must not repeat the hero's
+   * "Shop now", or the page ships two identically-worded buttons pointing at
+   * two different places.
+   */
+  cta?: string;
   href?: string;
   imageSeed?: string;
   className?: string;
@@ -25,6 +31,7 @@ export interface NewDropProps {
 export function NewDrop({
   title = "Nightfall Edition",
   copy = "A limited pressing, numbered by hand. Once it is gone, it is gone.",
+  cta = "See the drop",
   href = ROUTES.category("albums"),
   imageSeed = "newdrop-nightfall",
   className,
@@ -32,15 +39,24 @@ export function NewDrop({
   return (
     <section aria-labelledby="newdrop-heading" className={cn("py-24 md:py-28", className)}>
       <Container>
-        {/* Eyebrow sits OUTSIDE the bezel, centered — the blueprint (§47) shows
-            "NEW DROP" as a label above the campaign frame, not inside it. */}
-        <Reveal className="mb-8 text-center md:mb-10">
-          <span className="inline-block rounded-pill border border-border px-3 py-1 text-micro uppercase tracking-[0.2em] text-muted">
-            New Drop
-          </span>
-        </Reveal>
+        {/*
+          The "NEW DROP" eyebrow pill that used to sit here is GONE, and that is
+          a deliberate art-direction call, not an oversight.
 
-        <Reveal delay={100}>
+          Two reasons. (1) Count: the homepage runs ten sections and was opening
+          eight of them with the identical pill — same border, same 0.2em
+          tracking, same micro caps. That repetition is what makes a page read as
+          templated rather than art-directed; the eye stops seeing a label and
+          starts seeing a rubber stamp. (2) Redundancy: this block IS the drop.
+          A label announcing "New Drop" above a full-bleed campaign frame with a
+          collection name in 56px display type tells the visitor nothing the
+          composition has not already said louder.
+
+          What replaces it is position and scale. This is the only section on the
+          homepage that breaks the Container's white rhythm with a full-bleed
+          cinematic frame — that break is the label.
+        */}
+        <Reveal>
           {/*
             Craft rule 1 — DOUBLE-BEZEL. Outer shell: faint surface, hairline ring,
             p-1.5 (6px), rounded-xl (20px). Inner core: rounded-lg (14px).
@@ -93,9 +109,39 @@ export function NewDrop({
                     {title}
                   </h2>
                   <p className="mt-4 max-w-[46ch] text-body text-white/80">{copy}</p>
+                  {/*
+                    Was `variant="primary"` labelled "Shop now" — identical to the
+                    hero's CTA. Two defects in one button. (1) Duplicate intent:
+                    two buttons with the same words pointing at two different
+                    destinations (/shop vs this collection) is the one case where
+                    a repeated label actively misinforms. (2) Accent budget: the
+                    direction says violet is RARE and reserved for the primary
+                    CTA, and spending it twice above the fold-and-a-half is how
+                    "everything purple" starts. The hero keeps the violet because
+                    it is the page's single primary action.
+
+                    `cta` names this block's own destination instead. On the dark
+                    scrim the secondary variant's border/text both invert to
+                    white, so contrast is stronger here than the violet fill was.
+                  */}
                   <div className="mt-8">
-                    <Button href={href} variant="primary" size="md" withArrow>
-                      Shop now
+                    {/*
+                      The root override inverts border + label for the dark
+                      scrim. The `[&>span]` rule reaches the arrow circle, whose
+                      secondary fill is bg-foreground/5 — near-invisible on a
+                      photograph. Overriding here rather than adding an "on-dark"
+                      variant to Button: §32 caps the system at three variants,
+                      and this is the only place on the site that puts a
+                      secondary button on an image.
+                    */}
+                    <Button
+                      href={href}
+                      variant="secondary"
+                      size="md"
+                      withArrow
+                      className="border-white/40 text-white hover:bg-white/10 [&>span]:bg-white/15"
+                    >
+                      {cta}
                     </Button>
                   </div>
                 </div>
