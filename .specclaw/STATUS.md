@@ -1,22 +1,24 @@
-# kpop-marketplace — SpecClaw Dashboard
+# 🦞 SpecClaw Dashboard
 
-## Active changes
+**Project:**   name: kpop-marketplace
+**Last Updated:** 2026-09-23 14:13 UTC
 
-_(none)_
+## Active Changes
 
-## Completed changes
 
-| Change | Stage | Status |
-|---|---|---|
-| 001-frontend-foundation | verified | 5/5 tasks complete — build ✅ lint ✅ ACs structurally confirmed |
+- ✅ **001-frontend-foundation** — 5/5 tasks (100%) | 0 failed
+- 📝 **006-skill-driven-revamp** — tasks done | 0/13 tasks (0%) | 0 failed
 
-## Up next (proposed, not started)
+## Pending Proposals
 
-- 002-ui-primitives — Button, Badge, Input (doc §32/§41)
-- 003-navbar — Navbar, MobileNav, BottomNav, AnnouncementBar (doc §11–12)
-- 004-product-card — ProductCard, ProductGrid, mock product/artist data (doc §16–17, §44)
-- 005-homepage — Hero, TrendingProducts, ShopByArtist, ComebackRadar, etc. assembled per §47 blueprint
+_None._
 
-## Blocked
+## Recently Completed
 
-_(none)_
+_None._
+
+## Stats
+
+- **Total changes:** 2
+- **Active:** 2
+- **Completed:** 0

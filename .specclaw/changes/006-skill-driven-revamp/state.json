@@ -1,0 +1,11 @@
+{
+  "change": "006-skill-driven-revamp",
+  "phase": "build",
+  "branch": "master",
+  "phases": {
+    "spec": {"status":"done","at":"2026-09-23T14:10:09Z"},
+    "design": {"status":"done","at":"2026-09-23T14:11:40Z"},
+    "tasks": {"status":"done","at":"2026-09-23T14:12:45Z"},
+    "build": {"status":"in-progress","at":"2026-09-23T14:16:08Z"}
+  }
+}
