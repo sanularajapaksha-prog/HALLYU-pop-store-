@@ -167,7 +167,11 @@ export function Drawer({
         aria-label={title ? undefined : ariaLabel}
         tabIndex={-1}
         className={cn(
-          "absolute flex flex-col bg-background shadow-[0_8px_40px_rgba(0,0,0,0.12)] outline-none",
+          // §9: separation comes from a border first, shadow second. The house
+          // ambient shadow (identical to every card) plus a 1px ring reads as a
+          // lifted panel without inventing a second elevation tier — a heavier
+          // shadow here was the only such outlier repo-wide.
+          "absolute flex flex-col bg-background ring-1 ring-foreground/10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] outline-none",
           "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none motion-reduce:transform-none",
           PANEL_BY_SIDE[side],
           shown ? "translate-x-0 translate-y-0" : HIDDEN_BY_SIDE[side],
