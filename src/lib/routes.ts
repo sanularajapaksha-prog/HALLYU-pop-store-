@@ -52,6 +52,6 @@ export const ROUTES = {
  * filesystem. Function builders are excluded because their targets are dynamic
  * segments (`[slug]`) and are asserted separately.
  */
-export const STATIC_ROUTES: readonly string[] = Object.values(ROUTES).filter(
-  (value): value is string => typeof value === "string",
-);
+export const STATIC_ROUTES: readonly string[] = Object.values(
+  ROUTES as Record<string, string | ((slug: string) => string)>,
+).filter((value): value is string => typeof value === "string");
