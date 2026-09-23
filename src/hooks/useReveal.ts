@@ -34,9 +34,20 @@ export function useReveal<T extends HTMLElement>(
     const element = ref.current;
     if (!element) return;
 
-    // No IntersectionObserver (very old browser / jsdom): the derived
-    // `isVisible` below already falls back to visible, so bail out.
-    if (typeof IntersectionObserver === "undefined") return;
+    // No IntersectionObserver (very old browser / jsdom): reveal rather than
+    // leaving content stuck at opacity-0 forever. Deferred to a microtask
+    // instead of set synchronously here, so it does not trip
+    // react-hooks/set-state-in-effect (a synchronous effect-body setState can
+    // cascade renders). Still client-only, so SSR and hydration stay in sync.
+    if (typeof IntersectionObserver === "undefined") {
+      let cancelled = false;
+      queueMicrotask(() => {
+        if (!cancelled) setHasEntered(true);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -56,8 +67,12 @@ export function useReveal<T extends HTMLElement>(
     return () => observer.disconnect();
   }, [threshold, once, reducedMotion]);
 
-  const canObserve = typeof IntersectionObserver !== "undefined";
-  const isVisible = reducedMotion || !canObserve || hasEntered;
+  // HYDRATION: this must not read anything that differs between server and
+  // client. An earlier version derived `typeof IntersectionObserver !==
+  // "undefined"` here, which made the server emit the revealed classes and the
+  // client's first render emit the hidden ones — a mismatch on all 30 callers.
+  // The no-IntersectionObserver fallback now lives in the effect above instead.
+  const isVisible = reducedMotion || hasEntered;
 
   return { ref, isVisible };
 }

@@ -13,7 +13,7 @@ export interface EditorialBannerImageProps {
  * static copy column stays server-rendered — only the parallax image side
  * needs scroll tracking.
  *
- * OVERSCAN (-inset-y-[12%] rather than inset-0) — this is a correctness fix,
+ * OVERSCAN (-inset-y-[21vh] rather than inset-0) — this is a correctness fix,
  * not a flourish. useParallax measures from viewport CENTER, so the offset it
  * returns is roughly (elementCenter - viewportCenter) * speed. For a plate this
  * size at speed 0.18, that reaches well over 100px by the time the section has
@@ -26,12 +26,18 @@ export interface EditorialBannerImageProps {
  * aspect ratio, so the extra height is clipped and no layout moves. Vertical
  * only — the motion is vertical, so horizontal overscan would just crop the
  * photograph for nothing.
+ * OVERSCAN SIZING (T12 finding D, measured in a real browser):
+ * max |offset| measured at ~= speed * viewportHeight, so the layer must extend
+ * that far past each edge. Percentages resolve against the FRAME height, which
+ * is unrelated to viewport height, so a fixed % is wrong at some window size
+ * (the original 8%/12% left 47-87px gaps at 1440x900). vh units track the
+ * offset's own scaling. Value is speed*100vh plus ~15% headroom.
  */
 export function EditorialBannerImage({ imageSeed }: EditorialBannerImageProps) {
   return (
     <ParallaxLayer
       speed={PARALLAX_SPEED.standard}
-      className="absolute -inset-y-[12%] inset-x-0"
+      className="absolute -inset-y-[21vh] inset-x-0"
     >
       <Image
         src={`https://picsum.photos/seed/${imageSeed}/800/1000`}

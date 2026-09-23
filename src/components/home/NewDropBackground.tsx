@@ -19,12 +19,18 @@ export interface NewDropBackgroundProps {
  * transparent band in at one edge. Here the band would appear INSIDE the
  * double-bezel frame, which is the one place on the page where a stray edge is
  * most obvious. 12% vertical overscan, clipped by the frame's overflow-hidden.
+ * OVERSCAN SIZING (T12 finding D, measured in a real browser):
+ * max |offset| measured at ~= speed * viewportHeight, so the layer must extend
+ * that far past each edge. Percentages resolve against the FRAME height, which
+ * is unrelated to viewport height, so a fixed % is wrong at some window size
+ * (the original 8%/12% left 47-87px gaps at 1440x900). vh units track the
+ * offset's own scaling. Value is speed*100vh plus ~15% headroom.
  */
 export function NewDropBackground({ imageSeed }: NewDropBackgroundProps) {
   return (
     <ParallaxLayer
       speed={PARALLAX_SPEED.standard}
-      className="absolute -inset-y-[12%] inset-x-0"
+      className="absolute -inset-y-[21vh] inset-x-0"
     >
       <Image
         src={`https://picsum.photos/seed/${imageSeed}/1600/686`}
