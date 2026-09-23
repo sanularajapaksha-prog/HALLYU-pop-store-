@@ -1,0 +1,111 @@
+import { Container } from "@/components/layout/Container";
+import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
+import { NewDropBackground } from "@/components/home/NewDropBackground";
+import { cn } from "@/lib/cn";
+import { ROUTES } from "@/lib/routes";
+
+export interface NewDropProps {
+  /** Collection name — the display-scale line inside the block. */
+  title?: string;
+  /** One line of supporting copy. Keep it to one line; §20 is a campaign, not a paragraph. */
+  copy?: string;
+  href?: string;
+  imageSeed?: string;
+  className?: string;
+}
+
+/**
+ * §20 — New Drop. A major campaign block, deliberately more editorial than a
+ * product grid: one image, one name, one CTA, and a lot of air around it.
+ *
+ * py-24 md:py-28 — §7's major-campaign gap (96–120px). Wider than the standard
+ * Section rhythm so this block separates the two product grids either side of it.
+ */
+export function NewDrop({
+  title = "Nightfall Edition",
+  copy = "A limited pressing, numbered by hand. Once it is gone, it is gone.",
+  href = ROUTES.category("albums"),
+  imageSeed = "newdrop-nightfall",
+  className,
+}: NewDropProps) {
+  return (
+    <section aria-labelledby="newdrop-heading" className={cn("py-24 md:py-28", className)}>
+      <Container>
+        {/* Eyebrow sits OUTSIDE the bezel, centered — the blueprint (§47) shows
+            "NEW DROP" as a label above the campaign frame, not inside it. */}
+        <Reveal className="mb-8 text-center md:mb-10">
+          <span className="inline-block rounded-pill border border-border px-3 py-1 text-micro uppercase tracking-[0.2em] text-muted">
+            New Drop
+          </span>
+        </Reveal>
+
+        <Reveal delay={100}>
+          {/*
+            Craft rule 1 — DOUBLE-BEZEL. Outer shell: faint surface, hairline ring,
+            p-1.5 (6px), rounded-xl (20px). Inner core: rounded-lg (14px).
+            20 - 6 = 14, so the two radii are truly concentric rather than
+            approximately so — that concentricity is what reads as "machined".
+          */}
+          <div className="rounded-xl bg-foreground/[0.03] p-1.5 ring-1 ring-foreground/5">
+            <div className="relative isolate overflow-hidden rounded-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]">
+              {/*
+                TRACED, not eyeballed — I computed frame height vs content height
+                at 375/414/640/768/1024/1280/1440/1920.
+
+                Below `sm` the ratio box LOSES: at 375px a 16/9 frame is only ~195px
+                tall while the stack (24px*2 padding + 40px heading + copy + margins
+                + 48px CTA) needs ~209px, so the copy escaped the scrim even with a
+                ONE-line heading. Phones therefore get an explicit min-h-[360px] and
+                no ratio; from `sm` up the ratio box wins and min-h is released.
+
+                21/9 is the cinematic proportion that makes this read as a campaign
+                rather than a banner ad — but it is gated at `lg`, NOT `md`, and that
+                is load-bearing. At exactly 768px the `md` breakpoint also promotes
+                the heading to 56px; a 21/9 frame there is only ~329px tall while the
+                content stack (56px heading + copy + margins + 48px CTA + 96px of
+                padding) needs ~290px, so a heading that wraps to two lines overflows
+                the scrim. At `lg` (1024px+) the frame is ~439px and the stack clears
+                comfortably. Tablets keep the taller 16/9 crop.
+              */}
+              <div className="relative min-h-[360px] w-full sm:min-h-0 sm:aspect-[16/9] lg:aspect-[21/9]">
+                {/*
+                  §20 parallax: image drifts against scroll, overlaid copy/CTA
+                  below stays static. Client sub-component for the same
+                  reason as Hero's HeroBackground — ParallaxLayer needs
+                  "use client", NewDrop itself stays server-rendered.
+                */}
+                <NewDropBackground imageSeed={imageSeed} />
+
+                {/* Scrim: heavier at the bottom-left where the copy lands, so the
+                    right side of the photograph stays visible. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-foreground/75 via-foreground/25 to-transparent"
+                />
+
+                {/* Copy block. p-6 -> p-12 so the text never crowds the bezel. */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 md:p-12">
+                  <h2
+                    id="newdrop-heading"
+                    className="max-w-[18ch] font-display text-display-lg leading-[0.95] tracking-tight text-white"
+                  >
+                    {title}
+                  </h2>
+                  <p className="mt-4 max-w-[46ch] text-body text-white/80">{copy}</p>
+                  <div className="mt-8">
+                    <Button href={href} variant="primary" size="md" withArrow>
+                      Shop now
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
+  );
+}
+
+export default NewDrop;
