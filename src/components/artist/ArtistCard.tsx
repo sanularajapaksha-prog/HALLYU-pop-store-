@@ -85,7 +85,7 @@ export function ArtistCard({ artist, className, priority = false }: ArtistCardPr
         */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/65 to-foreground/58"
         />
 
         {/*

@@ -97,7 +97,7 @@ export function NewDrop({
                     right side of the photograph stays visible. */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-foreground/75 via-foreground/25 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/60 to-foreground/45"
                 />
 
                 {/* Copy block. p-6 -> p-12 so the text never crowds the bezel. */}

@@ -70,7 +70,7 @@ export function CategoryCard({ category, className, priority = false }: Category
             the type here is larger and must hold over any image. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-foreground/10"
+          className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/60 to-foreground/45"
         />
 
         {/* Machined top edge of the double-bezel — own layer, above the

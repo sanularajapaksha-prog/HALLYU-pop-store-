@@ -12,7 +12,11 @@ const VARIANT: Record<ProductBadge, string> = {
   NEW: "bg-accent text-white",
   LIMITED: "bg-foreground text-background",
   "PRE-ORDER": "bg-info text-white",
-  "LOW-STOCK": "bg-warning text-foreground",
+  // text-background (white), not text-foreground: #0a0a0a on #b45309 measures
+  // 3.94:1, and this is 10px text, so AA needs 4.5:1. White gives 5.02:1.
+  // It was the only variant inverting to dark-on-amber; the other four already
+  // pair a mid/dark background with white and land at 5.17-19.8:1.
+  "LOW-STOCK": "bg-warning text-background",
   EXCLUSIVE: "bg-foreground text-background",
 };
 
