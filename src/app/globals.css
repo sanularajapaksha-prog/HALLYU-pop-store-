@@ -10,10 +10,10 @@
   --color-surface: #f5f5f5;
   --color-surface-2: #ebebeb;
   --color-border: #e5e5e5;
-  --color-muted: #737373;
+  --color-muted: #696969;
   --color-accent: #7c3aed; /* Electric Violet */
-  --color-success: #16a34a;
-  --color-warning: #f59e0b;
+  --color-success: #15803d;
+  --color-warning: #b45309;
   --color-error: #dc2626;
   --color-info: #2563eb;
 
@@ -164,4 +164,26 @@
 body {
   background: var(--color-background);
   color: var(--color-foreground);
+}
+
+/* ── Heart-pop keyframe — WishlistButton toggle-on micro-interaction.
+   A CSS transition can only interpolate monotonically toward the target
+   scale, so the textbook emil-design-eng "overshoot then settle" pop needs
+   an actual keyframe. Transform-only (GPU-safe). Applied via a plain
+   Tailwind class (`animate-heart-pop`) so `motion-reduce:` can strip it
+   the same way every other hover/toggle motion in this component already
+   does — no JS PRM branching needed here. ───────────────────────────── */
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@utility animate-heart-pop {
+  animation: heart-pop 350ms cubic-bezier(0.32, 0.72, 0, 1);
 }
