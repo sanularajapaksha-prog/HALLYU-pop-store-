@@ -145,7 +145,7 @@ still leave the site correct — just not revamped.
 
 ### Wave 5 — Real-browser verification
 
-- [ ] `T11` — Render every route via `playwright-cli`
+- [x] `T11` — Render every route via `playwright-cli`
   - Files: (none — verification only)
   - Estimate: large
   - Kind: test
@@ -157,7 +157,7 @@ still leave the site correct — just not revamped.
     `src/lib/artists.ts`, `src/lib/categories.ts` — never guess. A timeout is
     a FAILURE, not a pass. Zero console errors required (AC5).
 
-- [ ] `T12` — Parallax and reduced-motion behaviour under real scroll
+- [x] `T12` — Parallax and reduced-motion behaviour under real scroll
   - Files: (none — verification only)
   - Estimate: medium
   - Kind: test

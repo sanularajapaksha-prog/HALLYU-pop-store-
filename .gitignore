@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local logs (dev server output contains absolute machine paths)
+*.log
+
+# playwright-cli session artifacts from browser verification
+/.playwright-cli/
